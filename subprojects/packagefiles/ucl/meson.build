@@ -32,11 +32,12 @@ ucl_sources = files(
 ucl_inc = include_directories('include')
 ucl_c_args = ['-DUCL_STRICT']
 
+if host_machine.cpu_family() == 'aarch64'
+  ucl_c_args += ['-DACC_ARCH_UNKNOWN=1', '-DACC_INFO_ARCH="aarch64"']
+endif
+
 if cc.get_id() == 'msvc' or cc.get_id() == 'clang-cl'
   ucl_c_args += ['-DACC_CONFIG_AUTO_NO_FUNCTIONS']
-  if host_machine.cpu_family() == 'aarch64'
-    ucl_c_args += ['-DACC_ARCH_UNKNOWN=1', '-DACC_INFO_ARCH="aarch64"']
-  endif
   ucl_c_args += cc.get_supported_arguments(
     '/wd4100',
     '/wd4127',
