@@ -104,6 +104,16 @@
       "binutils-dev"
     ]
   },
+  "bgfx": {
+    "debian_packages": [
+      "libgl-dev",
+      "libx11-dev"
+    ],
+    "alpine_packages": [
+      "libx11-dev",
+      "mesa-dev"
+    ]
+  },
   "aklomp-base64": {
     "_comment": [
       "The test program has a bug that causes it to fail with a SIGILL on x86 platforms without avx512 (all CI runners)",
