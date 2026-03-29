@@ -8,7 +8,8 @@ geometryc_inc = [
   include_directories('../../3rdparty'),
 ]
 
-geometryc = executable('geometryc',
+geometryc = executable(
+  'geometryc',
   geometryc_sources,
   meshoptimizer_src,
   include_directories: geometryc_inc,

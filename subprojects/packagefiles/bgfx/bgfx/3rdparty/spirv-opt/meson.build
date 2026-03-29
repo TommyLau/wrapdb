@@ -1,7 +1,6 @@
 # spirv-opt (SPIRV-Tools)
 
 spirv_opt_sources = files(
-  # source/opt/
   '../spirv-tools/source/opt/aggressive_dead_code_elim_pass.cpp',
   '../spirv-tools/source/opt/amd_ext_to_khr.cpp',
   '../spirv-tools/source/opt/analyze_live_input_pass.cpp',
@@ -11,8 +10,8 @@ spirv_opt_sources = files(
   '../spirv-tools/source/opt/build_module.cpp',
   '../spirv-tools/source/opt/canonicalize_ids_pass.cpp',
   '../spirv-tools/source/opt/ccp_pass.cpp',
-  '../spirv-tools/source/opt/cfg_cleanup_pass.cpp',
   '../spirv-tools/source/opt/cfg.cpp',
+  '../spirv-tools/source/opt/cfg_cleanup_pass.cpp',
   '../spirv-tools/source/opt/code_sink.cpp',
   '../spirv-tools/source/opt/combine_access_chains.cpp',
   '../spirv-tools/source/opt/compact_ids_pass.cpp',
@@ -30,8 +29,8 @@ spirv_opt_sources = files(
   '../spirv-tools/source/opt/debug_info_manager.cpp',
   '../spirv-tools/source/opt/decoration_manager.cpp',
   '../spirv-tools/source/opt/def_use_manager.cpp',
-  '../spirv-tools/source/opt/desc_sroa_util.cpp',
   '../spirv-tools/source/opt/desc_sroa.cpp',
+  '../spirv-tools/source/opt/desc_sroa_util.cpp',
   '../spirv-tools/source/opt/dominator_analysis.cpp',
   '../spirv-tools/source/opt/dominator_tree.cpp',
   '../spirv-tools/source/opt/eliminate_dead_constant_pass.cpp',
@@ -44,8 +43,8 @@ spirv_opt_sources = files(
   '../spirv-tools/source/opt/fix_func_call_arguments.cpp',
   '../spirv-tools/source/opt/fix_storage_class.cpp',
   '../spirv-tools/source/opt/flatten_decoration_pass.cpp',
-  '../spirv-tools/source/opt/fold_spec_constant_op_and_composite_pass.cpp',
   '../spirv-tools/source/opt/fold.cpp',
+  '../spirv-tools/source/opt/fold_spec_constant_op_and_composite_pass.cpp',
   '../spirv-tools/source/opt/folding_rules.cpp',
   '../spirv-tools/source/opt/freeze_spec_constant_value_pass.cpp',
   '../spirv-tools/source/opt/function.cpp',
@@ -55,8 +54,8 @@ spirv_opt_sources = files(
   '../spirv-tools/source/opt/inline_exhaustive_pass.cpp',
   '../spirv-tools/source/opt/inline_opaque_pass.cpp',
   '../spirv-tools/source/opt/inline_pass.cpp',
-  '../spirv-tools/source/opt/instruction_list.cpp',
   '../spirv-tools/source/opt/instruction.cpp',
+  '../spirv-tools/source/opt/instruction_list.cpp',
   '../spirv-tools/source/opt/interface_var_sroa.cpp',
   '../spirv-tools/source/opt/interp_fixup_pass.cpp',
   '../spirv-tools/source/opt/invocation_interlock_placement_pass.cpp',
@@ -69,12 +68,12 @@ spirv_opt_sources = files(
   '../spirv-tools/source/opt/local_redundancy_elimination.cpp',
   '../spirv-tools/source/opt/local_single_block_elim_pass.cpp',
   '../spirv-tools/source/opt/local_single_store_elim_pass.cpp',
-  '../spirv-tools/source/opt/loop_dependence_helpers.cpp',
   '../spirv-tools/source/opt/loop_dependence.cpp',
+  '../spirv-tools/source/opt/loop_dependence_helpers.cpp',
   '../spirv-tools/source/opt/loop_descriptor.cpp',
   '../spirv-tools/source/opt/loop_fission.cpp',
-  '../spirv-tools/source/opt/loop_fusion_pass.cpp',
   '../spirv-tools/source/opt/loop_fusion.cpp',
+  '../spirv-tools/source/opt/loop_fusion_pass.cpp',
   '../spirv-tools/source/opt/loop_peeling.cpp',
   '../spirv-tools/source/opt/loop_unroller.cpp',
   '../spirv-tools/source/opt/loop_unswitch_pass.cpp',
@@ -85,8 +84,8 @@ spirv_opt_sources = files(
   '../spirv-tools/source/opt/module.cpp',
   '../spirv-tools/source/opt/opextinst_forward_ref_fixup_pass.cpp',
   '../spirv-tools/source/opt/optimizer.cpp',
-  '../spirv-tools/source/opt/pass_manager.cpp',
   '../spirv-tools/source/opt/pass.cpp',
+  '../spirv-tools/source/opt/pass_manager.cpp',
   '../spirv-tools/source/opt/pch_source_opt.cpp',
   '../spirv-tools/source/opt/private_to_local_pass.cpp',
   '../spirv-tools/source/opt/propagator.cpp',
@@ -100,8 +99,8 @@ spirv_opt_sources = files(
   '../spirv-tools/source/opt/replace_desc_array_access_using_var_index.cpp',
   '../spirv-tools/source/opt/replace_invalid_opc.cpp',
   '../spirv-tools/source/opt/resolve_binding_conflicts_pass.cpp',
-  '../spirv-tools/source/opt/scalar_analysis_simplification.cpp',
   '../spirv-tools/source/opt/scalar_analysis.cpp',
+  '../spirv-tools/source/opt/scalar_analysis_simplification.cpp',
   '../spirv-tools/source/opt/scalar_replacement_pass.cpp',
   '../spirv-tools/source/opt/set_spec_constant_default_value_pass.cpp',
   '../spirv-tools/source/opt/simplification_pass.cpp',
@@ -123,39 +122,43 @@ spirv_opt_sources = files(
   '../spirv-tools/source/opt/vector_dce.cpp',
   '../spirv-tools/source/opt/workaround1209.cpp',
   '../spirv-tools/source/opt/wrap_opkill.cpp',
-  # source/reduce/
+)
+
+spirv_opt_sources += files(
   '../spirv-tools/source/reduce/change_operand_reduction_opportunity.cpp',
   '../spirv-tools/source/reduce/change_operand_to_undef_reduction_opportunity.cpp',
   '../spirv-tools/source/reduce/conditional_branch_to_simple_conditional_branch_opportunity_finder.cpp',
   '../spirv-tools/source/reduce/conditional_branch_to_simple_conditional_branch_reduction_opportunity.cpp',
-  '../spirv-tools/source/reduce/merge_blocks_reduction_opportunity_finder.cpp',
   '../spirv-tools/source/reduce/merge_blocks_reduction_opportunity.cpp',
+  '../spirv-tools/source/reduce/merge_blocks_reduction_opportunity_finder.cpp',
   '../spirv-tools/source/reduce/operand_to_const_reduction_opportunity_finder.cpp',
   '../spirv-tools/source/reduce/operand_to_dominating_id_reduction_opportunity_finder.cpp',
   '../spirv-tools/source/reduce/operand_to_undef_reduction_opportunity_finder.cpp',
   '../spirv-tools/source/reduce/pch_source_reduce.cpp',
   '../spirv-tools/source/reduce/reducer.cpp',
-  '../spirv-tools/source/reduce/reduction_opportunity_finder.cpp',
   '../spirv-tools/source/reduce/reduction_opportunity.cpp',
+  '../spirv-tools/source/reduce/reduction_opportunity_finder.cpp',
   '../spirv-tools/source/reduce/reduction_pass.cpp',
   '../spirv-tools/source/reduce/reduction_util.cpp',
-  '../spirv-tools/source/reduce/remove_block_reduction_opportunity_finder.cpp',
   '../spirv-tools/source/reduce/remove_block_reduction_opportunity.cpp',
-  '../spirv-tools/source/reduce/remove_function_reduction_opportunity_finder.cpp',
+  '../spirv-tools/source/reduce/remove_block_reduction_opportunity_finder.cpp',
   '../spirv-tools/source/reduce/remove_function_reduction_opportunity.cpp',
+  '../spirv-tools/source/reduce/remove_function_reduction_opportunity_finder.cpp',
   '../spirv-tools/source/reduce/remove_instruction_reduction_opportunity.cpp',
-  '../spirv-tools/source/reduce/remove_selection_reduction_opportunity_finder.cpp',
   '../spirv-tools/source/reduce/remove_selection_reduction_opportunity.cpp',
+  '../spirv-tools/source/reduce/remove_selection_reduction_opportunity_finder.cpp',
   '../spirv-tools/source/reduce/remove_struct_member_reduction_opportunity.cpp',
   '../spirv-tools/source/reduce/remove_unused_instruction_reduction_opportunity_finder.cpp',
   '../spirv-tools/source/reduce/remove_unused_struct_member_reduction_opportunity_finder.cpp',
   '../spirv-tools/source/reduce/simple_conditional_branch_to_branch_opportunity_finder.cpp',
   '../spirv-tools/source/reduce/simple_conditional_branch_to_branch_reduction_opportunity.cpp',
-  '../spirv-tools/source/reduce/structured_construct_to_block_reduction_opportunity_finder.cpp',
   '../spirv-tools/source/reduce/structured_construct_to_block_reduction_opportunity.cpp',
-  '../spirv-tools/source/reduce/structured_loop_to_selection_reduction_opportunity_finder.cpp',
+  '../spirv-tools/source/reduce/structured_construct_to_block_reduction_opportunity_finder.cpp',
   '../spirv-tools/source/reduce/structured_loop_to_selection_reduction_opportunity.cpp',
-  # source/ (top-level libspirv files)
+  '../spirv-tools/source/reduce/structured_loop_to_selection_reduction_opportunity_finder.cpp',
+)
+
+spirv_opt_sources += files(
   '../spirv-tools/source/assembly_grammar.cpp',
   '../spirv-tools/source/binary.cpp',
   '../spirv-tools/source/diagnostic.cpp',
@@ -179,15 +182,20 @@ spirv_opt_sources = files(
   '../spirv-tools/source/text.cpp',
   '../spirv-tools/source/text_handler.cpp',
   '../spirv-tools/source/to_string.cpp',
-  # source/util/
+)
+
+spirv_opt_sources += files(
   '../spirv-tools/source/util/bit_vector.cpp',
   '../spirv-tools/source/util/parse_number.cpp',
   '../spirv-tools/source/util/string_utils.cpp',
-  # source/val/
+)
+
+spirv_opt_sources += files(
   '../spirv-tools/source/val/basic_block.cpp',
   '../spirv-tools/source/val/construct.cpp',
   '../spirv-tools/source/val/function.cpp',
   '../spirv-tools/source/val/instruction.cpp',
+  '../spirv-tools/source/val/validate.cpp',
   '../spirv-tools/source/val/validate_adjacency.cpp',
   '../spirv-tools/source/val/validate_annotation.cpp',
   '../spirv-tools/source/val/validate_arithmetics.cpp',
@@ -234,11 +242,12 @@ spirv_opt_sources = files(
   '../spirv-tools/source/val/validate_tensor.cpp',
   '../spirv-tools/source/val/validate_tensor_layout.cpp',
   '../spirv-tools/source/val/validate_type.cpp',
-  '../spirv-tools/source/val/validate.cpp',
   '../spirv-tools/source/val/validation_state.cpp',
 )
 
-spirv_opt_lib = static_library('spirv-opt', spirv_opt_sources,
+spirv_opt_lib = static_library(
+  'spirv-opt',
+  spirv_opt_sources,
   include_directories: [
     include_directories('../spirv-tools/include'),
     include_directories('../spirv-tools'),

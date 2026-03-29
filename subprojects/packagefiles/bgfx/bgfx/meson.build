@@ -45,7 +45,8 @@ bgfx_link_extra = []
 bgfx_dx_inc = []
 
 if host_machine.system() == 'darwin'
-  bgfx_platform_deps += dependency('appleframeworks',
+  bgfx_platform_deps += dependency(
+    'appleframeworks',
     modules: ['Cocoa', 'Metal', 'QuartzCore', 'IOKit', 'CoreFoundation'],
   )
   # renderer_mtl/vk/webgpu include ObjC headers on macOS — compile as ObjC++
@@ -58,7 +59,8 @@ if host_machine.system() == 'darwin'
       copy: true,
     )
   endforeach
-  bgfx_objcpp_lib = static_library('bgfx_objcpp',
+  bgfx_objcpp_lib = static_library(
+    'bgfx_objcpp',
     bgfx_objcpp_files,
     include_directories: [bgfx_public_inc, bgfx_private_inc, bgfx_src_inc],
     dependencies: [bx_dep, bimg_dep],
@@ -99,7 +101,8 @@ elif host_machine.system() == 'windows'
   )
 endif
 
-bgfx_lib = static_library('bgfx',
+bgfx_lib = static_library(
+  'bgfx',
   bgfx_src,
   include_directories: [bgfx_public_inc, bgfx_private_inc] + bgfx_dx_inc,
   dependencies: [bx_dep, bimg_dep] + bgfx_platform_deps,
@@ -122,7 +125,10 @@ bgfx_dep = declare_dependency(
 bgfx_vertexlayout_src = files('src/vertexlayout.cpp')
 bgfx_vertexlayout_dep_list = [bx_dep]
 if host_machine.system() == 'darwin'
-  bgfx_vertexlayout_dep_list += dependency('appleframeworks', modules: ['Cocoa'])
+  bgfx_vertexlayout_dep_list += dependency(
+    'appleframeworks',
+    modules: ['Cocoa'],
+  )
 endif
 bgfx_vertexlayout_dep = declare_dependency(
   include_directories: bgfx_public_inc,
@@ -146,7 +152,9 @@ bgfx_shader_dep = declare_dependency(
 # Only available when webgpu renderer is enabled and the headers exist.
 if get_option('bgfx_config_renderer_webgpu')
   webgpu_inc = include_directories('3rdparty/webgpu/include')
-  webgpu_dep = declare_dependency(include_directories: webgpu_inc)
+  webgpu_dep = declare_dependency(
+    include_directories: webgpu_inc,
+  )
 else
   webgpu_dep = declare_dependency()
 endif
@@ -184,7 +192,6 @@ if opt_build_example_common
     'examples/common/bgfx_utils.cpp',
     'examples/common/camera.cpp',
     'examples/common/cube_atlas.cpp',
-    'examples/common/example-glue.cpp',
     'examples/common/debugdraw/debugdraw.cpp',
     'examples/common/entry/cmd.cpp',
     'examples/common/entry/dialog.cpp',
@@ -197,6 +204,7 @@ if opt_build_example_common
     'examples/common/entry/entry_windows.cpp',
     'examples/common/entry/entry_x11.cpp',
     'examples/common/entry/input.cpp',
+    'examples/common/example-glue.cpp',
     'examples/common/font/font_manager.cpp',
     'examples/common/font/text_buffer_manager.cpp',
     'examples/common/font/text_metrics.cpp',
@@ -224,9 +232,14 @@ if opt_build_example_common
     example_common_platform_deps += dependency('x11')
   endif
 
-  example_common_lib = static_library('example-common',
+  example_common_lib = static_library(
+    'example-common',
     dear_imgui_src + meshoptimizer_src + example_common_src,
-    include_directories: [example_common_public_inc, bgfx_public_inc, bgfx_private_inc],
+    include_directories: [
+      example_common_public_inc,
+      bgfx_public_inc,
+      bgfx_private_inc,
+    ],
     dependencies: [bgfx_dep, bx_dep, bimg_dep, bimg_decode_dep] + example_common_platform_deps,
     cpp_args: ['-D__STDC_FORMAT_MACROS', '-D_CRT_SECURE_NO_WARNINGS'],
   )

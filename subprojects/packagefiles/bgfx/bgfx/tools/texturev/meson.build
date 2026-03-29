@@ -4,6 +4,8 @@ texturev_sources = files(
   'texturev.cpp',
 )
 
-texturev = executable('texturev', texturev_sources,
+texturev = executable(
+  'texturev',
+  texturev_sources,
   dependencies: imgui_dep,
 )
