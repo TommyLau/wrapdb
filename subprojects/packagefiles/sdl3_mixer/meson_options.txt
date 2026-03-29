@@ -1,0 +1,99 @@
+# Built-in decoders (zero external dependencies)
+option(
+    'wave',
+    type: 'boolean',
+    value: true,
+    description: 'WAV decoder',
+)
+option(
+    'aiff',
+    type: 'boolean',
+    value: true,
+    description: 'AIFF decoder',
+)
+option(
+    'voc',
+    type: 'boolean',
+    value: true,
+    description: 'VOC decoder',
+)
+option(
+    'au',
+    type: 'boolean',
+    value: true,
+    description: 'AU decoder',
+)
+option(
+    'mp3_drmp3',
+    type: 'boolean',
+    value: true,
+    description: 'MP3 decoder via bundled dr_mp3',
+)
+option(
+    'flac_drflac',
+    type: 'boolean',
+    value: true,
+    description: 'FLAC decoder via bundled dr_flac',
+)
+option(
+    'vorbis_stb',
+    type: 'boolean',
+    value: true,
+    description: 'Ogg Vorbis decoder via bundled stb_vorbis',
+)
+option(
+    'midi_timidity',
+    type: 'boolean',
+    value: true,
+    description: 'MIDI decoder via bundled Timidity',
+)
+
+# External decoders (require system libraries)
+option(
+    'flac_libflac',
+    type: 'boolean',
+    value: false,
+    description: 'FLAC decoder via libFLAC',
+)
+option(
+    'vorbis_vorbisfile',
+    type: 'boolean',
+    value: false,
+    description: 'Ogg Vorbis decoder via libvorbisfile',
+)
+option(
+    'opus',
+    type: 'boolean',
+    value: false,
+    description: 'Opus decoder via opusfile',
+)
+option(
+    'mp3_mpg123',
+    type: 'boolean',
+    value: false,
+    description: 'MP3 decoder via mpg123',
+)
+option(
+    'midi_fluidsynth',
+    type: 'boolean',
+    value: false,
+    description: 'MIDI decoder via FluidSynth',
+)
+option(
+    'mod_xmp',
+    type: 'boolean',
+    value: false,
+    description: 'MOD decoder via libxmp',
+)
+option(
+    'wavpack',
+    type: 'boolean',
+    value: false,
+    description: 'WavPack decoder',
+)
+option(
+    'gme',
+    type: 'boolean',
+    value: false,
+    description: 'Game Music Emu decoder',
+)

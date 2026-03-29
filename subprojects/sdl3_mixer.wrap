@@ -1,0 +1,9 @@
+[wrap-file]
+directory = SDL3_mixer-3.2.0
+source_url = https://github.com/libsdl-org/SDL_mixer/releases/download/release-3.2.0/SDL3_mixer-3.2.0.tar.gz
+source_filename = SDL3_mixer-3.2.0.tar.gz
+source_hash = 1f86fae7226d58f2ad210ca4d9e06488db722230032803423d83bad6d35fc395
+patch_directory = sdl3_mixer
+
+[provide]
+dependency_names = sdl3_mixer

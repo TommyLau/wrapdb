@@ -4194,6 +4194,14 @@
       "3.2.4-1"
     ]
   },
+  "sdl3_mixer": {
+    "dependency_names": [
+      "sdl3_mixer"
+    ],
+    "versions": [
+      "3.2.0-1"
+    ]
+  },
   "sdl3_ttf": {
     "dependency_names": [
       "sdl3_ttf"
