@@ -87,6 +87,8 @@ endif
 
 if get_option('bgfx_config_debug_annotation')
   bgfx_config_args += '-DBGFX_CONFIG_DEBUG_ANNOTATION=1'
+else
+  bgfx_config_args += '-DBGFX_CONFIG_DEBUG_ANNOTATION=0'
 endif
 
 if get_option('bgfx_opengl_version') != ''
