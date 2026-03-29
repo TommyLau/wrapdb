@@ -182,7 +182,6 @@ PER_PROJECT_PERMITTED_FILES: dict[str, set[str]] = {
     },
 }
 SOURCE_FILENAME_PREFIXES = {
-    'bgfx': 'bgfx.cmake.v',
     'icu': 'icu4c',
     'libtomcrypt': 'crypt',
 }

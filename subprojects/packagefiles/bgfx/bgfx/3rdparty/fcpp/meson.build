@@ -14,6 +14,7 @@ fcpp_c_args = [
   '-DNWORK=65536',
   '-DNBUFF=65536',
   '-DOLD_PREPROCESSOR=0',
+  '-D_GNU_SOURCE',
 ]
 
 if meson.get_compiler('c').get_id() == 'msvc'
