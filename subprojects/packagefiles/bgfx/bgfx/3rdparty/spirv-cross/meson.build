@@ -13,9 +13,7 @@ spirv_cross_sources = files(
   'spirv_reflect.cpp',
 )
 
-spirv_cross_lib = static_library(
-  'spirv-cross',
-  spirv_cross_sources,
+spirv_cross_lib = static_library('spirv-cross', spirv_cross_sources,
   cpp_args: ['-DSPIRV_CROSS_EXCEPTIONS_TO_ASSERTIONS'],
   include_directories: [
     include_directories('.'),

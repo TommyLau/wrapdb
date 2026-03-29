@@ -28,9 +28,7 @@ else
   endif
 endif
 
-fcpp_lib = static_library(
-  'fcpp',
-  fcpp_sources,
+fcpp_lib = static_library('fcpp', fcpp_sources,
   c_args: fcpp_c_args,
   include_directories: include_directories('.'),
   override_options: ['c_std=c11'],

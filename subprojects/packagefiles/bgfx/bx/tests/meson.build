@@ -47,8 +47,7 @@ bx_catch_src = files('../3rdparty/catch/catch_amalgamated.cpp')
 
 bx_test_inc = include_directories('.', '../3rdparty')
 
-bx_test = executable(
-  'bx_test',
+bx_test = executable('bx_test',
   bx_test_src,
   bx_catch_src,
   include_directories: bx_test_inc,
@@ -65,8 +64,7 @@ bx_bench_src = files(
   'simd_bench.cpp',
 )
 
-bx_bench = executable(
-  'bx_bench',
+bx_bench = executable('bx_bench',
   bx_bench_src,
   bx_catch_src,
   include_directories: bx_test_inc,

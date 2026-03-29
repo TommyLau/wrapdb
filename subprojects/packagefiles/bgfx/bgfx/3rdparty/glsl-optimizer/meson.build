@@ -2,18 +2,18 @@
 
 glsl_optimizer_sources = files(
   # src/glsl/glcpp/
+  'src/glsl/glcpp/glcpp-lex.c',
+  'src/glsl/glcpp/glcpp-parse.c',
+  'src/glsl/glcpp/pp.c',
+  # src/glsl/
   'src/glsl/ast_array_index.cpp',
   'src/glsl/ast_expr.cpp',
   'src/glsl/ast_function.cpp',
-  # src/glsl/
   'src/glsl/ast_to_hir.cpp',
   'src/glsl/ast_type.cpp',
   'src/glsl/builtin_functions.cpp',
   'src/glsl/builtin_types.cpp',
   'src/glsl/builtin_variables.cpp',
-  'src/glsl/glcpp/glcpp-lex.c',
-  'src/glsl/glcpp/glcpp-parse.c',
-  'src/glsl/glcpp/pp.c',
   'src/glsl/glsl_lexer.cpp',
   'src/glsl/glsl_optimizer.cpp',
   'src/glsl/glsl_parser.cpp',
@@ -117,18 +117,9 @@ glsl_optimizer_c_args = []
 _cpp = meson.get_compiler('cpp')
 if _cpp.get_id() == 'msvc'
   glsl_optimizer_args += [
-    '/wd4100',
-    '/wd4127',
-    '/wd4132',
-    '/wd4189',
-    '/wd4204',
-    '/wd4244',
-    '/wd4245',
-    '/wd4389',
-    '/wd4701',
-    '/wd4702',
-    '/wd4706',
-    '/wd4996',
+    '/wd4100', '/wd4127', '/wd4132', '/wd4189',
+    '/wd4204', '/wd4244', '/wd4245', '/wd4389',
+    '/wd4701', '/wd4702', '/wd4706', '/wd4996',
   ]
   glsl_optimizer_c_args += glsl_optimizer_args
 else
@@ -155,9 +146,7 @@ else
   endif
 endif
 
-glsl_optimizer_lib = static_library(
-  'glsl-optimizer',
-  glsl_optimizer_sources,
+glsl_optimizer_lib = static_library('glsl-optimizer', glsl_optimizer_sources,
   c_args: glsl_optimizer_c_args,
   cpp_args: glsl_optimizer_args,
   include_directories: [

@@ -74,16 +74,12 @@ elif host_machine.system() == 'linux'
   bx_deps += meson.get_compiler('cpp').find_library('dl')
   bx_deps += meson.get_compiler('cpp').find_library('rt')
 elif host_machine.system() == 'darwin'
-  bx_deps += dependency(
-    'appleframeworks',
-    modules: ['Foundation'],
-  )
+  bx_deps += dependency('appleframeworks', modules: ['Foundation'])
 elif host_machine.system() == 'android'
   bx_deps += meson.get_compiler('cpp').find_library('log')
 endif
 
-bx_lib = static_library(
-  'bx',
+bx_lib = static_library('bx',
   bx_sources,
   include_directories: [bx_include, bx_compat_include, bx_3rdparty_include],
   cpp_args: bx_compile_args,
