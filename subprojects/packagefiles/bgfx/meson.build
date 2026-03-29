@@ -8,6 +8,17 @@ project(
   default_options: ['cpp_std=c++20'],
 )
 
+if host_machine.system() == 'linux'
+  add_project_arguments(
+    '-D_GNU_SOURCE',
+    '-include',
+    'dlfcn.h',
+    '-include',
+    'sys/prctl.h',
+    language: ['c', 'cpp'],
+  )
+endif
+
 if host_machine.system() == 'darwin'
   add_languages(
     'objc',
