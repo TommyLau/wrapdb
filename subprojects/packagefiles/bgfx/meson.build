@@ -23,6 +23,14 @@ if host_machine.system() == 'linux'
   )
     _linux_args += ['-Dfseeko64=fseeko', '-Dftello64=ftello']
   endif
+  _cpp = meson.get_compiler('cpp')
+  if not _cpp.has_header('execinfo.h')
+    _execinfo_stub = configure_file(
+      output: 'execinfo.h',
+      command: ['sh', '-c', 'echo "/* stub */" > @OUTPUT@'],
+    )
+    _linux_args += ['-I' + meson.current_build_dir()]
+  endif
   add_project_arguments(
     _linux_args,
     language: ['c', 'cpp'],
