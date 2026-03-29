@@ -320,6 +320,14 @@
       "7.6.8-1"
     ]
   },
+  "bgfx": {
+    "dependency_names": [
+      "bgfx"
+    ],
+    "versions": [
+      "1.142.9197-1"
+    ]
+  },
   "blueprint-compiler": {
     "program_names": [
       "blueprint-compiler"
