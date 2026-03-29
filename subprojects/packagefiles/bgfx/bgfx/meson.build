@@ -69,7 +69,7 @@ if host_machine.system() == 'darwin'
   bgfx_link_extra += bgfx_objcpp_lib
 
 elif host_machine.system() == 'linux'
-  bgfx_private_args += '-D_GNU_SOURCE'
+  bgfx_private_args += ['-D_GNU_SOURCE', '-include', 'dlfcn.h']
   bgfx_platform_deps += dependency('x11')
   bgfx_platform_deps += dependency('gl')
   bgfx_platform_deps += dependency('threads')
