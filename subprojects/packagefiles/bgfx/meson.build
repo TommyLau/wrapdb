@@ -9,12 +9,22 @@ project(
 )
 
 if host_machine.system() == 'linux'
-  add_project_arguments(
+  _linux_args = [
     '-D_GNU_SOURCE',
     '-include',
     'dlfcn.h',
     '-include',
     'sys/prctl.h',
+  ]
+  _cc = meson.get_compiler('c')
+  if not _cc.has_function(
+    'fseeko64',
+    prefix: '#define _GNU_SOURCE\n#include <stdio.h>',
+  )
+    _linux_args += ['-Dfseeko64=fseeko', '-Dftello64=ftello']
+  endif
+  add_project_arguments(
+    _linux_args,
     language: ['c', 'cpp'],
   )
 endif
