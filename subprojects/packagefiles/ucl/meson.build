@@ -32,8 +32,11 @@ ucl_sources = files(
 ucl_inc = include_directories('include')
 ucl_c_args = ['-DUCL_STRICT']
 
-if host_machine.system() == 'windows'
+if cc.get_id() == 'msvc' or cc.get_id() == 'clang-cl'
   ucl_c_args += ['-DACC_CONFIG_AUTO_NO_FUNCTIONS']
+  if host_machine.cpu_family() == 'aarch64'
+    ucl_c_args += ['-DACC_ARCH_UNKNOWN=1', '-DACC_INFO_ARCH="aarch64"']
+  endif
   ucl_c_args += cc.get_supported_arguments(
     '/wd4100',
     '/wd4127',
@@ -41,7 +44,7 @@ if host_machine.system() == 'windows'
     '/wd4267',
     '/wd4996',
   )
-elif host_machine.system() == 'darwin'
+else
   ucl_c_args += cc.get_supported_arguments(
     '-Wno-sign-conversion',
     '-Wno-conversion',
@@ -51,17 +54,13 @@ elif host_machine.system() == 'darwin'
     '-Wno-shorten-64-to-32',
     '-Wno-tautological-constant-out-of-range-compare',
     '-Wno-unused-local-typedef',
-  )
-elif host_machine.system() == 'linux'
-  ucl_c_args += cc.get_supported_arguments(
-    '-Wno-sign-conversion',
-    '-Wno-conversion',
-    '-Wno-unused-parameter',
-    '-Wno-cast-align',
     '-Wno-type-limits',
     '-Wno-unused-local-typedefs',
+    '-Wno-maybe-uninitialized',
   )
-  ucl_c_args += ['-DACC_COMPILE_TIME_ASSERT_HEADER(e)=']
+  if cc.get_id() == 'gcc'
+    ucl_c_args += ['-DACC_COMPILE_TIME_ASSERT_HEADER(e)=']
+  endif
 endif
 
 ucl_lib = library(
