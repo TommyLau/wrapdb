@@ -134,3 +134,5 @@ endif
 if get_option('bgfx_build_tests')
   subdir('bx/tests')
 endif
+
+meson.override_dependency('bgfx', bgfx_dep)
