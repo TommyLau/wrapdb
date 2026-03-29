@@ -240,6 +240,9 @@ class TestReleases(unittest.TestCase):
             # Those are imported tags from v1, they got renamed to sqlite3 and libjpeg-turbo.
             if name in {'sqlite', 'libjpeg'}:
                 continue
+            # Skip tags for wraps not present on this branch (e.g. from other fork branches)
+            if not Path('subprojects', f'{name}.wrap').exists():
+                continue
             self.assertIn(name, self.releases)
             self.assertIn(version, self.releases[name]['versions'], f'for {name}')
 

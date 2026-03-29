@@ -1,0 +1,9 @@
+[wrap-file]
+directory = ucl-1.03
+source_url = https://www.oberhumer.com/opensource/ucl/download/ucl-1.03.tar.gz
+source_filename = ucl-1.03.tar.gz
+source_hash = b865299ffd45d73412293369c9754b07637680e5c826915f097577cd27350348
+patch_directory = ucl
+
+[provide]
+dependency_names = ucl
