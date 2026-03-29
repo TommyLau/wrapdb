@@ -112,6 +112,7 @@
       "wayland-protocols"
     ],
     "alpine_packages": [
+      "libexecinfo-dev",
       "libx11-dev",
       "mesa-dev",
       "wayland-dev",
