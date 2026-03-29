@@ -84,7 +84,7 @@ option(
 option(
     'bgfx_with_wayland',
     type: 'boolean',
-    value: false,
+    value: true,
     description: 'Use Wayland backend.',
 )
 

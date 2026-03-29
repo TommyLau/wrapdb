@@ -107,11 +107,15 @@
   "bgfx": {
     "debian_packages": [
       "libgl-dev",
-      "libx11-dev"
+      "libwayland-dev",
+      "libx11-dev",
+      "wayland-protocols"
     ],
     "alpine_packages": [
       "libx11-dev",
-      "mesa-dev"
+      "mesa-dev",
+      "wayland-dev",
+      "wayland-protocols"
     ]
   },
   "aklomp-base64": {
