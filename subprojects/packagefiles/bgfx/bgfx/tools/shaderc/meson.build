@@ -45,7 +45,9 @@ shaderc_deps = [
   tint_dep,
 ]
 
-shaderc = executable('shaderc', shaderc_sources,
+shaderc = executable(
+  'shaderc',
+  shaderc_sources,
   include_directories: shaderc_include_dirs,
   dependencies: shaderc_deps,
   override_options: ['cpp_std=c++20'],
