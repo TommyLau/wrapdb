@@ -34,6 +34,12 @@ ucl_c_args = ['-DUCL_STRICT']
 
 if cc.get_id() == 'msvc' or cc.get_id() == 'clang-cl'
   ucl_c_args += ['-DACC_CONFIG_AUTO_NO_FUNCTIONS']
+  if host_machine.cpu_family() not in ['x86', 'x86_64']
+    ucl_c_args += [
+      '-DACC_ARCH_UNKNOWN=1',
+      '-DACC_INFO_ARCH="' + host_machine.cpu_family() + '"',
+    ]
+  endif
   ucl_c_args += cc.get_supported_arguments(
     '/wd4100',
     '/wd4127',
