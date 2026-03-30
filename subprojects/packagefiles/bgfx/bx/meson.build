@@ -54,6 +54,18 @@ bx_compile_args = [
 
 cpp = meson.get_compiler('cpp')
 
+# __builtin_return_address(N>0) is a hard error on some architectures (e.g.
+# loongarch64).  Wrap it so only frame 0 actually calls the builtin.
+if not cpp.compiles(
+  'void* f() { return __builtin_return_address(1); }',
+  name: '__builtin_return_address(1)',
+)
+  bx_compile_args += [
+    '-D__builtin_return_address(x)=((x)==0?__builtin_return_address(0):(void*)0)',
+    '-D__builtin_frame_address(x)=((x)==0?__builtin_frame_address(0):(void*)0)',
+  ]
+endif
+
 # MSVC: SEH-compatible exception handling (PRIVATE — bx only, matches cmake)
 if cpp.get_id() == 'msvc'
   bx_compile_args += ['/EHs-c-', '-D_HAS_EXCEPTIONS=0']
