@@ -89,6 +89,15 @@ foreach flag : [
   endif
 endforeach
 
+# nvtt debug.h only checks NV_CPU_X86_64/NV_CPU_AARCH64 for 64-bit pointer
+# casts, but ppc64/riscv64/loongarch64 also have 64-bit pointers.
+if cpp.sizeof('void*') == 8 and host_machine.cpu_family() not in [
+  'x86_64',
+  'aarch64',
+]
+  bimg_encode_warn_args += '-DNV_CPU_X86_64=1'
+endif
+
 bimg_encode_lib = static_library(
   'bimg_encode',
   bimg_encode_sources,
