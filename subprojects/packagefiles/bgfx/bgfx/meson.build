@@ -42,8 +42,8 @@ bgfx_compile_args = [
 bgfx_private_args = []
 
 # Vulkan renderer uses NULL comparisons with non-dispatchable handles (uint64_t
-# on 32-bit), which is a compile error.  Disable Vulkan on 32-bit platforms.
-if meson.get_compiler('cpp').sizeof('void*') == 4
+# on 32-bit), which is a compile error on clang/gcc but not MSVC.
+if meson.get_compiler('cpp').sizeof('void*') == 4 and host_machine.system() == 'linux'
   bgfx_compile_args += '-DBGFX_CONFIG_RENDERER_VULKAN=0'
 endif
 bgfx_platform_deps = []
