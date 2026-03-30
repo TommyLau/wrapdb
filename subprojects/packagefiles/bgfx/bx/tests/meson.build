@@ -45,7 +45,7 @@ bx_test_src = files(
 
 bx_catch_src = files('../3rdparty/catch/catch_amalgamated.cpp')
 
-bx_test_inc = include_directories('.', '../3rdparty')
+bx_test_inc = [include_directories('.'), bx_3rdparty_include]
 
 bx_test = executable(
   'bx_test',

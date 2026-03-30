@@ -1,4 +1,27 @@
-# bgfx library + example-common (imgui)
+# bgfx library
+# cmake: bgfx.cmake + shared.cmake
+
+# =============================================================================
+# Shared include directories (defined here so subdirs avoid ../ references)
+# =============================================================================
+
+bgfx_3rdparty_inc = include_directories('3rdparty')
+
+bgfx_dawn_inc = include_directories(
+  '3rdparty/dawn',
+  '3rdparty/dawn/include',
+  '3rdparty/dawn/src',
+  '3rdparty/dawn/src/tint',
+)
+
+bgfx_spirv_tools_inc = include_directories(
+  '3rdparty/spirv-tools',
+  '3rdparty/spirv-tools/include',
+  '3rdparty/spirv-tools/include/generated',
+  '3rdparty/spirv-tools/source',
+)
+
+bgfx_spirv_headers_inc = include_directories('3rdparty/spirv-headers/include')
 
 # =============================================================================
 # bgfx library
@@ -89,8 +112,8 @@ elif host_machine.system() == 'linux'
     'src/renderer_webgpu.cpp',
   )
   bgfx_dx_inc = include_directories(
-    '3rdparty/directx-headers/include/directx',
     '3rdparty/directx-headers/include',
+    '3rdparty/directx-headers/include/directx',
     '3rdparty/directx-headers/include/wsl/stubs',
   )
 
@@ -102,8 +125,8 @@ elif host_machine.system() == 'windows'
     'src/renderer_webgpu.cpp',
   )
   bgfx_dx_inc = include_directories(
-    '3rdparty/directx-headers/include/directx',
     '3rdparty/directx-headers/include',
+    '3rdparty/directx-headers/include/directx',
   )
 endif
 
@@ -186,75 +209,12 @@ endif
 
 # =============================================================================
 # example-common (imgui, debugdraw, entry, font, nanovg, ps)
+# cmake: example-common target from examples.cmake
 # =============================================================================
 
-# cmake: BGFX_BUILD_EXAMPLE_COMMON is ON unless BOTH examples AND tools are OFF.
-# opt_build_example_common is resolved in the root meson.build.
 if opt_build_example_common
-
   subdir('3rdparty/dear-imgui')
-
-  example_common_src = files(
-    'examples/common/bgfx_utils.cpp',
-    'examples/common/camera.cpp',
-    'examples/common/cube_atlas.cpp',
-    'examples/common/debugdraw/debugdraw.cpp',
-    'examples/common/entry/cmd.cpp',
-    'examples/common/entry/dialog.cpp',
-    'examples/common/entry/entry.cpp',
-    'examples/common/entry/entry_android.cpp',
-    'examples/common/entry/entry_glfw.cpp',
-    'examples/common/entry/entry_html5.cpp',
-    'examples/common/entry/entry_noop.cpp',
-    'examples/common/entry/entry_sdl.cpp',
-    'examples/common/entry/entry_windows.cpp',
-    'examples/common/entry/entry_x11.cpp',
-    'examples/common/entry/input.cpp',
-    'examples/common/example-glue.cpp',
-    'examples/common/font/font_manager.cpp',
-    'examples/common/font/text_buffer_manager.cpp',
-    'examples/common/font/text_metrics.cpp',
-    'examples/common/font/utf8.cpp',
-    'examples/common/imgui/imgui.cpp',
-    'examples/common/nanovg/nanovg.cpp',
-    'examples/common/nanovg/nanovg_bgfx.cpp',
-    'examples/common/ps/particle_system.cpp',
-  )
-
-  if host_machine.system() == 'darwin'
-    example_common_src += files(
-      'examples/common/entry/dialog_darwin.mm',
-      'examples/common/entry/entry_osx.mm',
-    )
-  endif
-
-  example_common_public_inc = include_directories(
-    'examples/common',
-    '3rdparty',
-  )
-
-  example_common_platform_deps = []
-  if host_machine.system() == 'linux'
-    example_common_platform_deps += dependency('x11')
-  endif
-
-  example_common_lib = static_library(
-    'example-common',
-    dear_imgui_src + meshoptimizer_src + example_common_src,
-    include_directories: [
-      example_common_public_inc,
-      bgfx_public_inc,
-      bgfx_private_inc,
-    ],
-    dependencies: [bgfx_dep, bx_dep, bimg_dep, bimg_decode_dep] + example_common_platform_deps,
-    cpp_args: ['-D__STDC_FORMAT_MACROS', '-D_CRT_SECURE_NO_WARNINGS'],
-  )
-
-  imgui_dep = declare_dependency(
-    include_directories: [example_common_public_inc, bgfx_public_inc],
-    link_with: example_common_lib,
-    dependencies: [bgfx_dep, bx_dep, bimg_dep, bimg_decode_dep],
-  )
+  subdir('examples/common')
 else
   imgui_dep = disabler()
 endif

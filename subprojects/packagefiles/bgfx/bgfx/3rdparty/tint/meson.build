@@ -430,20 +430,14 @@ tint_lib = static_library(
   tint_sources,
   cpp_args: tint_cpp_args,
   include_directories: [
-    include_directories('../dawn'),
-    include_directories('../dawn/src/tint'),
-    include_directories('../spirv-tools'),
-    include_directories('../spirv-tools/include'),
-    include_directories('../spirv-tools/include/generated'),
-    include_directories('../spirv-headers/include'),
+    bgfx_dawn_inc,
+    bgfx_spirv_tools_inc,
+    bgfx_spirv_headers_inc,
   ],
   override_options: ['cpp_std=c++20'],
 )
 
 tint_dep = declare_dependency(
   link_with: tint_lib,
-  include_directories: [
-    include_directories('../dawn'),
-    include_directories('../dawn/src/tint'),
-  ],
+  include_directories: bgfx_dawn_inc,
 )

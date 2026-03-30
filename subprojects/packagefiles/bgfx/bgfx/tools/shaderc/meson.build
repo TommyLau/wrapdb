@@ -17,19 +17,11 @@ shaderc_sources = files(
   'shaderc_wgsl.cpp',
 )
 
-shaderc_include_dirs = [
-  include_directories('../../3rdparty/dawn'),
-  include_directories('../../3rdparty/dawn/src'),
-  include_directories('../../3rdparty/dawn/include'),
-]
+shaderc_include_dirs = [bgfx_dawn_inc]
 
 # On Linux, add directx-headers for DXC support
 if host_machine.system() == 'linux'
-  shaderc_include_dirs += [
-    include_directories('../../3rdparty/directx-headers/include/directx'),
-    include_directories('../../3rdparty/directx-headers/include'),
-    include_directories('../../3rdparty/directx-headers/include/wsl/stubs'),
-  ]
+  shaderc_include_dirs += bgfx_dx_inc
 endif
 
 shaderc_deps = [

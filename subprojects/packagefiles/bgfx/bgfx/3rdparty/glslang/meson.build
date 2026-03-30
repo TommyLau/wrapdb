@@ -96,9 +96,8 @@ glslang_lib = static_library(
     include_directories('.'),
     include_directories('./glslang/Public'),
     include_directories('./glslang/Include'),
-    include_directories('../'),  # bgfx/3rdparty
-    include_directories('../spirv-tools/include'),
-    include_directories('../spirv-tools/source'),
+    bgfx_3rdparty_inc,
+    bgfx_spirv_tools_inc,
   ],
   override_options: ['cpp_std=c++17'],
 )

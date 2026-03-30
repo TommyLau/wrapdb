@@ -249,16 +249,13 @@ spirv_opt_lib = static_library(
   'spirv-opt',
   spirv_opt_sources,
   include_directories: [
-    include_directories('../spirv-tools/include'),
-    include_directories('../spirv-tools'),
-    include_directories('../spirv-tools/include/generated'),
-    include_directories('../spirv-tools/source'),
-    include_directories('../spirv-headers/include'),
+    bgfx_spirv_tools_inc,
+    bgfx_spirv_headers_inc,
   ],
   override_options: ['cpp_std=c++17'],
 )
 
 spirv_opt_dep = declare_dependency(
   link_with: spirv_opt_lib,
-  include_directories: include_directories('../spirv-tools/include'),
+  include_directories: bgfx_spirv_tools_inc,
 )
