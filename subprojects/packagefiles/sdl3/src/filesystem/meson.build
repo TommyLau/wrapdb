@@ -7,6 +7,11 @@ elif host_machine.system() == 'darwin'
   cdata.set('SDL_FILESYSTEM_COCOA', 1)
   subdir('cocoa')
   subdir('posix')
+elif host_machine.system() == 'android'
+  cdata.set('SDL_FSOPS_POSIX', 1)
+  cdata.set('SDL_FILESYSTEM_ANDROID', 1)
+  subdir('android')
+  subdir('posix')
 else
   cdata.set('SDL_FSOPS_POSIX', 1)
   cdata.set('SDL_FILESYSTEM_UNIX', 1)

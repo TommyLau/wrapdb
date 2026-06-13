@@ -4,8 +4,16 @@ if host_machine.system() == 'windows'
   cdata.set('SDL_VIDEO_DRIVER_WINDOWS', 1)
   subdir('windows')
 elif host_machine.system() == 'darwin'
-  cdata.set('SDL_VIDEO_DRIVER_COCOA', 1)
-  subdir('cocoa')
+  if host_machine.subsystem() == 'ios'
+    cdata.set('SDL_VIDEO_DRIVER_UIKIT', 1)
+    subdir('uikit')
+  else
+    cdata.set('SDL_VIDEO_DRIVER_COCOA', 1)
+    subdir('cocoa')
+  endif
+elif host_machine.system() == 'android'
+  cdata.set('SDL_VIDEO_DRIVER_ANDROID', 1)
+  subdir('android')
 else
   cdata.set('SDL_VIDEO_DRIVER_WAYLAND', 1)
   subdir('wayland')

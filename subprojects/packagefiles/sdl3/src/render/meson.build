@@ -8,6 +8,9 @@ if host_machine.system() == 'windows'
 elif host_machine.system() == 'darwin'
   subdir('metal')
   subdir('vulkan')
+elif host_machine.system() == 'android'
+  subdir('opengles2')
+  subdir('vulkan')
 else
   subdir('opengl')
   subdir('vulkan')

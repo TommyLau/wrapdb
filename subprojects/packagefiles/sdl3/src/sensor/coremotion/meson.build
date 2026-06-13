@@ -1,1 +1,3 @@
-sources += files()
+sources += files(
+  'SDL_coremotionsensor.m',
+)

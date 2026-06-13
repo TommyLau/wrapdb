@@ -1,7 +1,13 @@
 if host_machine.system() == 'windows'
   subdir('windows')
 elif host_machine.system() == 'darwin'
-  subdir('macos')
+  if host_machine.subsystem() == 'ios'
+    subdir('ios')
+  else
+    subdir('macos')
+  endif
+elif host_machine.system() == 'android'
+  subdir('android')
 else
   subdir('unix')
 endif

@@ -318,6 +318,32 @@ if host_machine.system() == 'linux'
   cdata.set('HAVE_DBUS_DBUS_H', 1)
   wayland_scanner = find_program('wayland-scanner')
   subdir('wayland-protocols')
+elif host_machine.system() == 'android'
+  # hidapi's Android backend (src/hidapi/android/hid.cpp) is C++.
+  add_languages(
+    'cpp',
+    native: false,
+  )
+  # Mirrors include/build_config/SDL_build_config_android.h (upstream's
+  # blessed Android configuration). Backend driver defines live in the
+  # per-subsystem meson.build files, same as the other platforms.
+  cdata.set('SDL_PLATFORM_ANDROID', 1)
+  cdata.set('SDL_THREAD_PTHREAD', 1)
+  cdata.set('SDL_THREAD_PTHREAD_RECURSIVE_MUTEX', 1)
+  cdata.set('SDL_LOADSO_DLOPEN', 1)
+  cdata.set('SDL_FSOPS_POSIX', 1)
+  cdata.set('SDL_VIDEO_OPENGL_ES', 1)
+  cdata.set('SDL_VIDEO_OPENGL_ES2', 1)
+  cdata.set('SDL_VIDEO_OPENGL_EGL', 1)
+  cdata.set('SDL_VIDEO_RENDER_OGL_ES2', 1)
+  cdata.set('SDL_VIDEO_VULKAN', 1)
+  cdata.set('SDL_VIDEO_RENDER_VULKAN', 1)
+  cdata.set('SDL_GPU_VULKAN', 1)
+  cdata.set('SDL_VIDEO_RENDER_GPU', 1)
+  cdata.set('SDL_TIMER_UNIX', 1)
+  sdl_deps += cc.find_library('android')
+  sdl_deps += cc.find_library('log')
+  sdl_deps += cc.find_library('OpenSLES')
 elif host_machine.system() == 'windows'
 
   # XInput(legacy) is provided by the Microsoft DirectX SDK and requires windows header include
@@ -434,6 +460,41 @@ elif host_machine.subsystem() == 'macos'
       'IOKit',
       'Metal',
       'QuartzCore',
+      'UniformTypeIdentifiers',
+    ],
+  )
+elif host_machine.subsystem() == 'ios'
+  cdata.set('SDL_PLATFORM_APPLE', 1)
+  # Use clang's atomic builtins (__sync_*) on arm64 instead of the deprecated
+  # libkern/OSAtomic path, whose header SDL only includes for SDL_PLATFORM_MACOS.
+  cdata.set('HAVE_GCC_ATOMICS', 1)
+  cdata.set('SDL_THREAD_PTHREAD', 1)
+  cdata.set('SDL_THREAD_PTHREAD_RECURSIVE_MUTEX', 1)
+  cdata.set('SDL_LOADSO_DLOPEN', 1)
+  cdata.set('SDL_PROCESS_POSIX', 1)
+  cdata.set('SDL_FSOPS_POSIX', 1)
+  cdata.set('SDL_FILESYSTEM_COCOA', 1)
+  cdata.set('SDL_VIDEO_METAL', 1)
+  cdata.set('SDL_VIDEO_RENDER_GPU', 1)
+  cdata.set('SDL_GPU_METAL', 1)
+  cdata.set('SDL_IPHONE_KEYBOARD', 1)
+  cdata.set('SDL_TIMER_UNIX', 1)
+  sdl_deps += dependency(
+    'appleframeworks',
+    modules: [
+      'AudioToolbox',
+      'AVFoundation',
+      'CoreAudio',
+      'CoreFoundation',
+      'CoreGraphics',
+      'CoreHaptics',
+      'CoreMedia',
+      'CoreMotion',
+      'Foundation',
+      'GameController',
+      'Metal',
+      'QuartzCore',
+      'UIKit',
       'UniformTypeIdentifiers',
     ],
   )

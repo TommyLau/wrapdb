@@ -6,6 +6,11 @@ if host_machine.system() == 'windows'
 elif host_machine.system() == 'darwin'
   cdata.set('SDL_AUDIO_DRIVER_COREAUDIO', 1)
   subdir('coreaudio')
+elif host_machine.system() == 'android'
+  cdata.set('SDL_AUDIO_DRIVER_AAUDIO', 1)
+  cdata.set('SDL_AUDIO_DRIVER_OPENSLES', 1)
+  subdir('aaudio')
+  subdir('openslES')
 else
   cdata.set('SDL_AUDIO_DRIVER_PIPEWIRE', 1)
   subdir('pipewire')
