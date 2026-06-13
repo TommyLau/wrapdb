@@ -74,11 +74,19 @@ bgfx_link_extra = []
 bgfx_dx_inc = []
 
 if host_machine.system() == 'darwin'
-  bgfx_platform_deps += dependency(
-    'appleframeworks',
-    modules: ['Cocoa', 'Metal', 'QuartzCore', 'IOKit', 'CoreFoundation'],
-  )
-  # renderer_mtl/vk/webgpu include ObjC headers on macOS — compile as ObjC++
+  if host_machine.subsystem() == 'ios'
+    # iOS: UIKit replaces macOS Cocoa/AppKit; IOKit's display APIs are absent.
+    bgfx_platform_deps += dependency(
+      'appleframeworks',
+      modules: ['UIKit', 'Metal', 'QuartzCore', 'CoreFoundation'],
+    )
+  else
+    bgfx_platform_deps += dependency(
+      'appleframeworks',
+      modules: ['Cocoa', 'Metal', 'QuartzCore', 'IOKit', 'CoreFoundation'],
+    )
+  endif
+  # renderer_mtl/vk/webgpu include ObjC headers on Apple — compile as ObjC++
   bgfx_src_inc = include_directories('src')
   bgfx_objcpp_files = []
   foreach f : ['renderer_mtl', 'renderer_vk', 'renderer_webgpu']
@@ -106,6 +114,25 @@ elif host_machine.system() == 'linux'
     bgfx_private_args += '-DWL_EGL_PLATFORM=1'
     bgfx_platform_deps += dependency('wayland-egl')
   endif
+  bgfx_src += files(
+    'src/renderer_mtl.cpp',
+    'src/renderer_vk.cpp',
+    'src/renderer_webgpu.cpp',
+  )
+  bgfx_dx_inc = include_directories(
+    '3rdparty/directx-headers/include',
+    '3rdparty/directx-headers/include/directx',
+    '3rdparty/directx-headers/include/wsl/stubs',
+  )
+
+elif host_machine.system() == 'android'
+  bgfx_platform_deps += dependency('threads')
+  bgfx_platform_deps += meson.get_compiler('cpp').find_library('dl')
+  # bgfx links GLES directly on Android (BGFX_USE_GL_DYNAMIC_LIB=0).
+  bgfx_platform_deps += meson.get_compiler('cpp').find_library('EGL')
+  bgfx_platform_deps += meson.get_compiler('cpp').find_library('GLESv2')
+  bgfx_platform_deps += meson.get_compiler('cpp').find_library('android')
+  bgfx_platform_deps += meson.get_compiler('cpp').find_library('log')
   bgfx_src += files(
     'src/renderer_mtl.cpp',
     'src/renderer_vk.cpp',
@@ -153,7 +180,9 @@ bgfx_dep = declare_dependency(
 # bgfx-vertexlayout — used by shaderc, geometryc, and example-common
 bgfx_vertexlayout_src = files('src/vertexlayout.cpp')
 bgfx_vertexlayout_dep_list = [bx_dep]
-if host_machine.system() == 'darwin'
+# Cocoa is macOS-only and vertexlayout.cpp is pure C++ (consumed only by the
+# host tools, which are not cross-built); skip the framework on iOS.
+if host_machine.system() == 'darwin' and host_machine.subsystem() != 'ios'
   bgfx_vertexlayout_dep_list += dependency(
     'appleframeworks',
     modules: ['Cocoa'],
